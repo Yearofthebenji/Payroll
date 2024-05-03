@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Employee Payroll Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="wrapper">
+    <header>
+      <h1>Employee Payroll Tracker</h1>
+    </header>
+    <div class="card">
+      <div class="card-header">
+       <h2>Employee Roster</h2>
+      </div>
+      <div class="card-body">
+       <table>
+        <thead>
+          <tr>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Salary</th>
+          </tr>
+        </thead>
+        <tbody id="employee-table">
+        </tbody>
+       </table>
+      </div>
+      <div class="card-footer">
+        <button onclick="addEmployee()">Add Employee</button>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+
+</html> 
+    <script>
+  let employees = [];
+
+  function addEmployee() {
+            let firstName = prompt("Enter first name:");
+            let lastName = prompt("Enter last name:");
+            let salary = parseFloat(prompt("Enter salary:"));
+
+            employees.push({ firstName, lastName, salary });
+
+            let continueAdding = confirm("Do you want to add another employee?");
+            if (continueAdding) {
+                addEmployee();
+            } else {
+                displayEmployees();
+            }
+        }
+
+function displayEmployees() {
+    employees.sort((a, b) => a.lastName.localeCompare(b.lastName));
+
+    let employeeDataDiv = document.getElementById("employeeData");
+            employeeDataDiv.innerHTML = "<h2>Employee Data</h2>";
+
+            employees.forEach(employee => {
+                let employeeInfo = document.createElement("p");
+                employeeInfo.textContent = `${employee.lastName}, ${employee.firstName}, ${employee.salary}`;
+                employeeDataDiv.appendChild(employeeInfo);
+            });
+
+ let totalSalary = employees.reduce((acc, employee) => acc + employee.salary, 0);
+            let totalSalaryInfo = document.createElement("p");
+            totalSalaryInfo.textContent = `Total Salary: ${totalSalary}`;
+            employeeDataDiv.appendChild(totalSalaryInfo);
+        }
+    </script>
+</body>
+</html>
